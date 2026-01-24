@@ -84,11 +84,21 @@
   <!-- Intro Section -->
   <div id="intro">
     <div class="intro-inner">
-      <video autoplay loop muted playsinline id="logo-video">
+      <video loop muted playsinline id="logo-video">
         <source src="logos/avtransparent.hevc.mp4" type="video/mp4" />
         <source src="logos/avtransparent.webm" type="video/webm" />
       </video>
 
+      <!-- Background Music -->
+      <audio id="bg-music" loop preload="auto" muted>
+        <source src="/music/background.m4a" type="audio/mp4">
+      </audio>
+
+      <button id="sound-btn" class="sound-toggle">
+        SOUND OFF
+      </button>
+
+      <!-- Directions -->
       <div class="directions" aria-label="Directions to enter">
         <a>SCROLL</a>
         <a>TO</a>
@@ -217,15 +227,6 @@
 
 
 
-  <!-- Music -->
-
-  <audio id="bg-music" loop preload="auto">
-    <source src="music/background.m4a" type="audio/mpeg">
-  </audio>
-
-  <button id="sound-btn" class="sound-toggle">
-    SOUND OFF
-  </button>
 
 
 

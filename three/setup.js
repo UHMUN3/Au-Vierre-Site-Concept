@@ -30,48 +30,56 @@ console.groupEnd();
 
 
 
-// Audio & Preloader Logic
+// Audio & Preloader Elements
 const music = document.getElementById('bg-music');
 const soundBtn = document.getElementById('sound-btn');
 const preloader = document.getElementById('preloader');
 const enterBtn = document.getElementById('enter-btn');
 let hasStarted = false;
 
-// Function to Start Site
-const enterSite = (e) => {
-    // Prevent double-firing on mobile
+// Function to Start Site (Async Version)
+const enterSite = async (e) => {
+    // Prevent double-firing
     if (hasStarted) return;
+
+    // Stop the browser from doing standard touch actions (scrolling/zooming)
     if (e && e.cancelable) e.preventDefault();
 
     hasStarted = true;
 
-    // 1. Audio Context Hack (Wake up the iPhone audio engine)
+    // 1. Audio Context Hack (The "Wake Up" Call)
+    // This waits until the hardware is confirmed ready
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (AudioContext) {
         const ctx = new AudioContext();
-        ctx.resume();
+        await ctx.resume();
     }
 
-    // 2. FORCE LOAD (Crucial for Mobile)
-    // This tells the iPhone "Download this NOW" before we try to play
-    music.load();
+    // 2. Prepare Audio
+    music.volume = 0.7;
+    music.muted = false; // Unmute now that we have interaction
 
-    const playPromise = music.play();
-
-    if (playPromise !== undefined) {
-        playPromise.then(_ => {
-                soundBtn.innerHTML = 'SOUND ON';
-            })
-            .catch(error => {
-                console.log("Audio Error:", error);
-            });
+    // 3. Play Music
+    try {
+        await music.play();
+        soundBtn.innerHTML = 'SOUND ON';
+        console.log("Audio playing successfully");
+    } catch (error) {
+        console.log("Audio play failed:", error);
+        soundBtn.innerHTML = 'SOUND OFF';
     }
 
-    // 3. Play Video
+    // 4. Play Video
     const video = document.getElementById('logo-video');
-    if (video) video.play();
+    if (video) {
+        try {
+            await video.play();
+        } catch (err) {
+            console.log("Video play failed:", err);
+        }
+    }
 
-    // 4. Hide Preloader
+    // 5. Hide Preloader
     if (preloader) {
         preloader.classList.add('preloader-hidden');
     }
@@ -79,18 +87,24 @@ const enterSite = (e) => {
     // Cleanup listeners
     if (enterBtn) {
         enterBtn.removeEventListener('click', enterSite);
-        enterBtn.removeEventListener('touchend', enterSite);
+        enterBtn.removeEventListener('touchstart', enterSite);
     }
 };
 
-// Add listener to the NEW Preloader Button
+// Add Listeners with "Passive: False"
+// This tells the browser "We are handling the touch event ourselves"
 if (enterBtn) {
-    // Listen for BOTH click (Desktop) and touchend (Mobile)
-    enterBtn.addEventListener('click', enterSite);
-    enterBtn.addEventListener('touchend', enterSite);
+    enterBtn.addEventListener('click', enterSite, {
+        passive: false
+    });
+    // 'once: true' automatically removes the listener after one tap
+    enterBtn.addEventListener('touchstart', enterSite, {
+        passive: false,
+        once: true
+    });
 }
 
-// Keep the toggle button working
+// Keep the Sound Toggle Button Logic
 soundBtn.addEventListener('click', () => {
     if (music.paused) {
         music.play();
@@ -100,7 +114,6 @@ soundBtn.addEventListener('click', () => {
         soundBtn.innerHTML = 'SOUND OFF';
     }
 });
-
 
 
 
