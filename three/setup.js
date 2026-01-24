@@ -25,64 +25,56 @@ console.log('https://www.instagram.com/aamune/');
 console.groupEnd();
 
 
-// 1. PRELOADER LOGIC
-// We wait for the window to load, then hide the preloader
-window.addEventListener('load', () => {
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-        // A small timeout ensures the site is fully rendered before fading
-        setTimeout(() => {
-            preloader.classList.add('preloader-hidden');
-        }, 900);
-    }
-})
 
 
 
 
 
-
-// Audio Elements
+// Audio & Preloader Logic
 const music = document.getElementById('bg-music');
 const soundBtn = document.getElementById('sound-btn');
+const preloader = document.getElementById('preloader');
+const enterBtn = document.getElementById('enter-btn'); // The new button
 let hasStarted = false;
 
-// 1. Function to try playing audio
-const startAudio = () => {
+// Function to Start Site
+const enterSite = () => {
     if (hasStarted) return;
 
+    // 1. Audio Context Hack (for iOS)
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (AudioContext) {
+        const ctx = new AudioContext();
+        ctx.resume();
+    }
+
+    // 2. Play Music
     music.play().then(() => {
         hasStarted = true;
         soundBtn.innerHTML = 'SOUND ON';
-
-        // Remove listeners to avoid spam the play command
-        window.removeEventListener('scroll', startAudio);
-        window.removeEventListener('wheel', startAudio);
-        window.removeEventListener('touchmove', startAudio);
-        window.removeEventListener('click', startAudio);
-        window.removeEventListener('touchstart', startAudio);
-
-
-        const video = document.getElementById('logo-video');
-        if (video && video.paused) {
-            video.play();
-        }
-
-    }).catch(error => {
-        // Browser denied it (usually due to lack of interaction)
-        console.log("Audio waiting for interaction...");
+    }).catch(err => {
+        console.log("Audio failed (user might have low power mode on)");
     });
+
+    // 3. Play Video (if it was paused)
+    const video = document.getElementById('logo-video');
+    if (video) video.play();
+
+    // 4. Hide Preloader (The Reveal)
+    if (preloader) {
+        preloader.classList.add('preloader-hidden');
+    }
+
+    // Cleanup listeners
+    enterBtn.removeEventListener('click', enterSite);
 };
 
-//Add listeners for EVERY type of movement
-//Cast a wide net: scroll, mouse wheel, touch screen drag, or click
-window.addEventListener('scroll', startAudio);
-window.addEventListener('wheel', startAudio);
-window.addEventListener('touchmove', startAudio); // For mobile
-window.addEventListener('click', startAudio); // Backup
-window.addEventListener('touchstart', startAudio);
+// Add listener to the NEW Preloader Button
+if (enterBtn) {
+    enterBtn.addEventListener('click', enterSite);
+}
 
-//Manual Toggle Button Logic
+// Keep the toggle button working
 soundBtn.addEventListener('click', () => {
     if (music.paused) {
         music.play();
@@ -92,7 +84,6 @@ soundBtn.addEventListener('click', () => {
         soundBtn.innerHTML = 'SOUND OFF';
     }
 });
-
 
 
 
