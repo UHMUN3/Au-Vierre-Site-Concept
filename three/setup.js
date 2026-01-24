@@ -13,7 +13,7 @@ const signature = `
 ###     ###  ########            ###     ########### ########## ###    ### ###    ### ##########       
 `;
 
-console.log(`%c${signature}`, 'font-family: monospace; font-weight: bold; color: #000000;');
+console.log(`%c${signature}`, 'font-family: monospace; font-weight: bold; color: #ffffff;');
 
 
 console.group('CREDITS');
@@ -34,44 +34,60 @@ console.groupEnd();
 const music = document.getElementById('bg-music');
 const soundBtn = document.getElementById('sound-btn');
 const preloader = document.getElementById('preloader');
-const enterBtn = document.getElementById('enter-btn'); // The new button
+const enterBtn = document.getElementById('enter-btn');
 let hasStarted = false;
 
 // Function to Start Site
-const enterSite = () => {
+const enterSite = (e) => {
+    // Prevent double-firing on mobile
     if (hasStarted) return;
+    if (e && e.cancelable) e.preventDefault();
 
-    // 1. Audio Context Hack (for iOS)
+    hasStarted = true;
+
+    // 1. Audio Context Hack (Wake up the iPhone audio engine)
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (AudioContext) {
         const ctx = new AudioContext();
         ctx.resume();
     }
 
-    // 2. Play Music
-    music.play().then(() => {
-        hasStarted = true;
-        soundBtn.innerHTML = 'SOUND ON';
-    }).catch(err => {
-        console.log("Audio failed (user might have low power mode on)");
-    });
+    // 2. FORCE LOAD (Crucial for Mobile)
+    // This tells the iPhone "Download this NOW" before we try to play
+    music.load();
 
-    // 3. Play Video (if it was paused)
+    const playPromise = music.play();
+
+    if (playPromise !== undefined) {
+        playPromise.then(_ => {
+                soundBtn.innerHTML = 'SOUND ON';
+            })
+            .catch(error => {
+                console.log("Audio Error:", error);
+            });
+    }
+
+    // 3. Play Video
     const video = document.getElementById('logo-video');
     if (video) video.play();
 
-    // 4. Hide Preloader (The Reveal)
+    // 4. Hide Preloader
     if (preloader) {
         preloader.classList.add('preloader-hidden');
     }
 
     // Cleanup listeners
-    enterBtn.removeEventListener('click', enterSite);
+    if (enterBtn) {
+        enterBtn.removeEventListener('click', enterSite);
+        enterBtn.removeEventListener('touchend', enterSite);
+    }
 };
 
 // Add listener to the NEW Preloader Button
 if (enterBtn) {
+    // Listen for BOTH click (Desktop) and touchend (Mobile)
     enterBtn.addEventListener('click', enterSite);
+    enterBtn.addEventListener('touchend', enterSite);
 }
 
 // Keep the toggle button working
@@ -84,9 +100,6 @@ soundBtn.addEventListener('click', () => {
         soundBtn.innerHTML = 'SOUND OFF';
     }
 });
-
-
-
 
 
 
