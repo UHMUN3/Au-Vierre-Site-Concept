@@ -49,11 +49,9 @@ let hasStarted = false;
 
 // 1. Function to try playing audio
 const startAudio = () => {
-    // If already playing, stop listening
     if (hasStarted) return;
 
     music.play().then(() => {
-        // Audio is playing
         hasStarted = true;
         soundBtn.innerHTML = 'SOUND ON';
 
@@ -62,6 +60,13 @@ const startAudio = () => {
         window.removeEventListener('wheel', startAudio);
         window.removeEventListener('touchmove', startAudio);
         window.removeEventListener('click', startAudio);
+        window.removeEventListener('touchstart', startAudio);
+
+
+        const video = document.getElementById('logo-video');
+        if (video && video.paused) {
+            video.play();
+        }
 
     }).catch(error => {
         // Browser denied it (usually due to lack of interaction)
@@ -75,6 +80,7 @@ window.addEventListener('scroll', startAudio);
 window.addEventListener('wheel', startAudio);
 window.addEventListener('touchmove', startAudio); // For mobile
 window.addEventListener('click', startAudio); // Backup
+window.addEventListener('touchstart', startAudio);
 
 //Manual Toggle Button Logic
 soundBtn.addEventListener('click', () => {
@@ -177,63 +183,6 @@ const particlesMaterial = new THREE.PointsMaterial({
 // Points
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
-
-
-
-
-
-/**
- * NEW: Logo Particles (The AV Gunner)
- */
-// 1. Load the Logo Texture (Make sure to use the PNG version!)
-const logoTexture = textureLoader.load('./logos/android-chrome-512x512 (i).png')
-
-// 2. Create Geometry for Logos
-const logoCount = 40 // Fewer particles so it doesn't look messy
-const logoPositions = new Float32Array(logoCount * 3)
-
-for (let i = 0; i < logoCount; i++) {
-    logoPositions[i * 3 + 0] = (Math.random() - 0.5) * 12 // X axis spread
-    // Spread them along the entire scrollable height
-    logoPositions[i * 3 + 1] = objectsDistance * 0.5 - Math.random() * objectsDistance * sectionMeshes.length * 3
-    logoPositions[i * 3 + 2] = (Math.random() - 0.5) * 10 // Z axis depth
-}
-
-const logoGeometry = new THREE.BufferGeometry()
-logoGeometry.setAttribute('position', new THREE.BufferAttribute(logoPositions, 3))
-
-// 3. Create Material (Bigger size for logos)
-const logoMaterial = new THREE.PointsMaterial({
-    color: 'black',
-    sizeAttenuation: true,
-    size: 2, // Much bigger than the dust (adjust this to fit your taste)
-    map: logoTexture,
-    transparent: true,
-    alphaMap: logoTexture, // Ensures the background is see-through
-    depthWrite: false,
-    blending: THREE.NormalBlending // Normal blending keeps the black logo visible
-})
-
-// 4. Add to Scene
-const logoParticles = new THREE.Points(logoGeometry, logoMaterial)
-scene.add(logoParticles)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
