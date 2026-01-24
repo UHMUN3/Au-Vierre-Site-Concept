@@ -5,63 +5,88 @@ const closeBtn = document.querySelector(".close-btn");
 const prevBtn = document.querySelector(".prev-btn");
 const nextBtn = document.querySelector(".next-btn");
 
-// Select ALL zoomable images (Lookbook + Products)
-// We convert the NodeList to a proper Array so we can find index numbers
-const images = Array.from(document.querySelectorAll('.look-item img, .product-img'));
-
+// State to track which group of images we are currently viewing
+let currentGallery = [];
 let currentIndex = 0;
 
-// 1. Function to open modal at specific index
-function openModal(index) {
+// Helper: Function to open the modal with a specific list of images
+function openModal(index, imageList) {
+    currentGallery = imageList; // Update the "active" list
     currentIndex = index;
     modal.style.display = "flex";
-    modalImg.src = images[currentIndex].src;
+    updateImage();
 }
 
-// 2. Add click event to every image on the site
-images.forEach((img, index) => {
+// Helper: Update the image source based on current index
+function updateImage() {
+    // Check if source is a string (URL) or an Image Element
+    const source = currentGallery[currentIndex];
+    // If it's an <img> tag, get .src. If it's just a string, use it directly.
+    modalImg.src = source.src ? source.src : source;
+}
+
+// 1. SETUP LOOKBOOK CLICKS
+// Select only lookbook images
+const lookbookImages = Array.from(document.querySelectorAll('.look-item img'));
+
+lookbookImages.forEach((img, index) => {
     img.addEventListener('click', function () {
-        openModal(index);
+        // When clicking lookbook, the gallery is ALL lookbook images
+        openModal(index, lookbookImages);
     });
 });
 
-// 3. Next Image Logic
-nextBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevents the modal from closing when clicking arrow
-    currentIndex++;
+// 2. SETUP PRODUCT CLICKS
+// Select product containers to find their specific images
+const productCards = document.querySelectorAll('.product-image-container');
 
-    // If we are at the end, loop back to the start (0)
-    if (currentIndex >= images.length) {
-        currentIndex = 0;
-    }
-    modalImg.src = images[currentIndex].src;
+productCards.forEach((card) => {
+    const mainImg = card.querySelector('.product-img');
+    // Find the hidden images inside THIS specific card
+    const hiddenImgs = Array.from(card.querySelectorAll('.hidden-gallery img'));
+
+    // Combine main image + hidden images into one specific list for this product
+    const productGallery = [mainImg, ...hiddenImgs];
+
+    // Add click event to the MAIN image
+    mainImg.addEventListener('click', function () {
+        // When clicking a product, the gallery is ONLY this product's images
+        openModal(0, productGallery);
+    });
 });
 
-// 4. Previous Image Logic
+
+// 3. NAVIGATION (Next/Prev)
+nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentIndex++;
+    if (currentIndex >= currentGallery.length) {
+        currentIndex = 0; // Loop back to start
+    }
+    updateImage();
+});
+
 prevBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     currentIndex--;
-
-    // If we are at the start, loop to the end
     if (currentIndex < 0) {
-        currentIndex = images.length - 1;
+        currentIndex = currentGallery.length - 1; // Loop to end
     }
-    modalImg.src = images[currentIndex].src;
+    updateImage();
 });
 
-// 5. Close Logic
+// 4. CLOSING LOGIC
 closeBtn.onclick = function () {
     modal.style.display = "none";
 }
 
 modal.onclick = function (event) {
-    // Only close if clicking the background (not the image or arrows)
     if (event.target === modal) {
         modal.style.display = "none";
     }
 }
 
-// 6. Keyboard Navigation (Arrow Keys)
+// Keyboard Navigation
 document.addEventListener('keydown', function (e) {
     if (modal.style.display === "flex") {
         if (e.key === "ArrowLeft") prevBtn.click();

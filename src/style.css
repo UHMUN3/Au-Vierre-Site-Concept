@@ -810,15 +810,12 @@ section:nth-child(odd) {
 .reveal {
   opacity: 0;
   transform: translateY(50px);
-  /* Starts 50px lower */
   transition: all 0.8s ease-out;
-  /* Takes 0.8s to float up */
 }
 
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
-  /* Floats to final position */
 }
 
 
