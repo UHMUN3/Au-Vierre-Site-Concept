@@ -1,0 +1,822 @@
+/* ===== Base ===== */
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+}
+
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #ffffff;
+  color: #000;
+  letter-spacing: -0.02em;
+}
+
+
+
+/* Custom Highlight Color */
+::selection {
+  background: #000000;
+  /* Black background */
+  color: #ffffff;
+  /* White text */
+}
+
+/* For Firefox compatibility */
+::-moz-selection {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* Font  */
+@font-face {
+  font-family: 'WBtext';
+  src: url('/font/warband-stencil-cufonfonts/WBtext.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+/* Custom Scrollbar (Webkit browsers like Chrome/Safari) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  /* Subtle grey */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #000000;
+  /* Darker on hover */
+}
+
+
+
+
+
+
+
+
+
+
+/* ===== Cart ===== */
+
+/* Cart UI Styles */
+.cart-container {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.cart-container.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.cart-icon {
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.cart-icon:hover {
+  border-color: rgba(0, 0, 0, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cart-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: fixed;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #000;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+/* Cart Panel */
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  transition: right 0.4s ease;
+  z-index: 999;
+  overflow-y: auto;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.cart-panel.open {
+  right: 0;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.cart-title {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+}
+
+.cart-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #000;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.cart-close:hover {
+  opacity: 0.6;
+}
+
+.cart-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+}
+
+.cart-items {
+  margin-bottom: 30px;
+}
+
+.cart-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.cart-item-image {
+  width: 80px;
+  height: 80px;
+  background: #f5f5f5;
+  flex-shrink: 0;
+}
+
+.cart-item-details {
+  flex: 1;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+
+.cart-item-name {
+  font-weight: 600;
+  margin-bottom: 5px;
+  letter-spacing: 0.03em;
+}
+
+.cart-item-price {
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.cart-item-remove {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 11px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  letter-spacing: 0.05em;
+}
+
+.cart-item-remove:hover {
+  color: #000;
+}
+
+.cart-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  margin-bottom: 20px;
+  letter-spacing: 0.05em;
+}
+
+.cart-total-label {
+  font-weight: 600;
+}
+
+.cart-checkout {
+  width: 100%;
+  padding: 15px;
+  background: #000;
+  color: #fff;
+  border: none;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cart-checkout:hover {
+  background: #333;
+}
+
+
+/* ===== Intro Screen ===== */
+#intro {
+  display: flex;
+  inset: 0;
+  background: #ffffff;
+
+}
+
+/* Center column + 1024px */
+.intro-inner {
+  min-height: 100vh;
+  width: 1024px;
+  max-width: 100%;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.panel {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+
+/* Logo video */
+#logo-video {
+  width: 800px;
+  max-width: 90vw;
+  height: auto;
+  margin-top: 120px;
+}
+
+/* ===== Directions  ===== */
+.directions {
+  margin-top: 55px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.06em;
+}
+
+.directions a {
+  text-decoration: none;
+  color: #000000;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+
+/* ===== Footer Note ===== */
+.intro-footer {
+  margin-top: auto;
+  /* pushes footer to bottom */
+  margin-bottom: 85px;
+
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  color: #bfbfbf;
+  text-transform: uppercase;
+}
+
+.intro-footer div:last-child {
+  text-transform: none;
+}
+
+
+
+.footer-link {
+  color: #bfbfbf;
+  /* Matches the color of your footer text */
+  text-decoration: none;
+  /* Removes the default underline */
+  transition: color 0.3s ease;
+  /* Smooth transition for the hover effect */
+  cursor: pointer;
+}
+
+.footer-link:hover {
+  color: #000000;
+  /* Darkens the text when the user hovers over it */
+  text-decoration: underline;
+  /* Optional: adds the underline back only on hover */
+}
+
+
+.section {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  justify-content: center;
+  font-family: 'WBtext', sans-serif;
+  color: #000000;
+  text-transform: uppercase;
+  font-size: 7vmin;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+section:nth-child(odd) {
+  justify-content: flex-end;
+}
+
+/* ===== Look Book Marquee Section ===== */
+
+.section.lookbook-section {
+  padding-left: 0;
+  padding-right: 0;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  gap: 0;
+}
+
+.lookbook-title {
+  font-family: WBtext, serif;
+  font-size: 4rem;
+  text-align: center;
+  padding-left: 10%;
+  padding-right: 10%;
+  z-index: 2;
+  margin-bottom: 40px;
+}
+
+.marquee-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0;
+  /* No gaps here */
+  width: max-content;
+  animation: scrollLeft 40s linear infinite;
+}
+
+.look-item {
+  margin: 0;
+  /* CRITICAL: Set to 0 so images touch */
+  padding: 0;
+  line-height: 0;
+  /* Helps prevent tiny vertical gaps */
+}
+
+.look-item img {
+  height: 60vh;
+  width: auto;
+  object-fit: cover;
+  display: block;
+  /* Important: removes default whitespace below images */
+  transition: opacity 0.3s ease;
+}
+
+/* Hover effects */
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.marquee-track:hover .look-item img {
+  opacity: 0.5;
+}
+
+.marquee-track .look-item img:hover {
+  opacity: 1;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .look-item img {
+    height: 40vh;
+  }
+}
+
+
+/* ===== Lightbox / Magnify Styles ===== */
+
+/* 1. Change cursor on the lookbook images to indicate they are clickable */
+.look-item img {
+  cursor: zoom-in;
+  /* Shows a magnifying glass cursor */
+}
+
+/* 2. The Modal Background (Hidden by default) */
+.lightbox-modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  z-index: 2000;
+  /* Sit on top of everything including the cart */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  /* Clean white background like the site */
+  backdrop-filter: blur(5px);
+  /* Optional: blurs the background slightly */
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3. The Enlarged Image */
+.lightbox-content {
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: zoomOpen 0.3s ease-out;
+  /* Smooth pop-up animation */
+}
+
+/* 4. The Close Button */
+.close-btn {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  color: #000;
+  font-size: 40px;
+  font-weight: lighter;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.close-btn:hover {
+  opacity: 0.5;
+}
+
+/* Animation for opening */
+@keyframes zoomOpen {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* ===== Sound Toggle ===== */
+.sound-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+  /* Above the 3D canvas */
+
+  background: transparent;
+  border: none;
+  color: #bfbfbf;
+  /* Matching grey aesthetic */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.sound-toggle:hover {
+  color: #000;
+}
+
+/* ===== Preloader Styles ===== */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+/* Stacks items vertically */
+.preloader-content {
+  display: flex;
+  flex-direction: column;
+  /* Stacks text on top of image */
+  align-items: center;
+  /* Centers them */
+  gap: 50px;
+  /* Space between text and logo */
+}
+
+.preloader-logo {
+  font-family: 'WBtext', serif;
+  font-size: 4rem;
+  color: #000;
+  margin: 0;
+  /* Remove default margins to keep spacing tight */
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* New Style for the Icon */
+.preloader-icon {
+  width: 140px;
+  height: auto;
+  opacity: 0.9;
+  animation: pulse 2s infinite ease-in-out;
+  /* Matches the text pulse */
+}
+
+.preloader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.98);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0.3;
+    transform: scale(0.98);
+  }
+}
+
+
+
+/* ===== Shop Grid ===== */
+.shop-section {
+  flex-direction: column;
+  height: auto;
+  /* Allow it to grow with content */
+  min-height: 100vh;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.shop-title {
+  font-family: 'WBtext', serif;
+  font-size: 4rem;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  width: 100%;
+  max-width: 1400px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+/* Product Card */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: opacity 0.3s;
+}
+
+.product-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background: #f4f4f4;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Hover Zoom Effect */
+.product-image-container:hover .product-img {
+  transform: scale(1.05);
+}
+
+/* Info Section */
+.product-info {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+/* Size Buttons */
+.size-selector {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.size-btn {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.size-btn:hover,
+.size-btn.selected {
+  border-color: #000;
+  background: #000;
+  color: #fff;
+}
+
+/* Add to Cart Button */
+.add-btn {
+  width: 100%;
+  padding: 12px;
+  background: #000;
+  color: #fff;
+  border: none;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.add-btn:hover {
+  background: #333;
+}
+
+
+/* ===== Modal Navigation Arrows ===== */
+.modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  /* Centers them vertically */
+  font-size: 50px;
+  color: #000;
+  /* Black arrows */
+  cursor: pointer;
+  padding: 20px;
+  user-select: none;
+  /* Prevents highlighting the arrow text */
+  z-index: 2001;
+  /* Above the image */
+  transition: opacity 0.3s;
+}
+
+.prev-btn {
+  left: 20px;
+}
+
+.next-btn {
+  right: 20px;
+}
+
+.modal-nav:hover {
+  opacity: 0.5;
+  /* Fade effect on hover */
+}
+
+/* Mobile: Move arrows slightly inward so they aren't cut off */
+@media (max-width: 768px) {
+  .modal-nav {
+    font-size: 30px;
+    padding: 10px;
+  }
+}
+
+
+/* ===== Scroll Reveal Animation ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  /* Starts 50px lower */
+  transition: all 0.8s ease-out;
+  /* Takes 0.8s to float up */
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+  /* Floats to final position */
+}

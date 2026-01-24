@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Au Vierre</title>
+  <link rel="stylesheet" href="/src/style.css" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/logos/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/logos/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/logos/favicon-16x16.png">
+  <link rel="manifest" href="/logos/site.webmanifest">
+  <link rel="shortcut icon" href="/logos/favicon.ico">
+
+  <title>AU VIERRE | Collection 01</title>
+  <meta name="description" content="Official store for AU VIERRE. Collection 01 available now.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://auvierre.com">
+  <meta property="og:title" content="AU VIERRE">
+  <meta property="og:description" content="Collection 01 - Available Now">
+  <meta property="og:image" content="https://your-shopify-url.com/share-image.jpg">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://auvierre.com">
+  <meta property="twitter:title" content="AU VIERRE">
+  <meta property="twitter:description" content="Collection 01 - Available Now">
+  <meta property="twitter:image" content="https://your-shopify-url.com/share-image.jpg">
+
+
+
+
+
+</head>
+
+<body>
+
+
+  <!-- Loader -->
+  <div id="preloader">
+    <div class="preloader-content">
+      <h1 class="preloader-logo">WELCOME</h1>
+      <!-- <img src="/logos/AVfavi.png" alt="AV Logo" class="preloader-icon"> -->
+    </div>
+  </div>
+
+  <canvas class="webgl"></canvas>
+
+  <!-- Cart UI -->
+  <div class="cart-container" id="cartContainer">
+    <div class="cart-icon" id="cartIcon">
+      <img src="logos/avCART.svg" alt="Cart">
+      <span class="cart-count" id="cartCount">0</span>
+    </div>
+  </div>
+
+  <div class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <h2 class="cart-title">CART</h2>
+      <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+
+    <div class="cart-empty" id="cartEmpty">
+      YOUR CART IS EMPTY
+    </div>
+
+    <div class="cart-items" id="cartItems">
+      <!-- Cart items will be dynamically inserted here -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span class="cart-total-label">TOTAL</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <button class="cart-checkout">CHECKOUT</button>
+    </div>
+  </div>
+
+  <!-- Intro Section -->
+  <div id="intro">
+    <div class="intro-inner">
+      <video autoplay loop muted playsinline id="logo-video">
+        <source src="logos/avtransparent.webm" type="video/webm" />
+      </video>
+
+      <div class="directions" aria-label="Directions to enter">
+        <a>SCROLL</a>
+        <a>TO</a>
+        <a>ENTER</a>
+      </div>
+
+
+
+      <!-- Intro Footer -->
+      <div class="intro-footer">
+        <div>THE AU VIERRE SITE IS OPTIMIZED FOR ALL DEVICES</div>
+        <div><a href="https://www.instagram.com/prod4mula/" target="_blank" class="footer-link">SOUNDS BY 4MULA</a>
+        </div>
+        <div><a href="https://www.instagram.com/aamune/" target="_blank" class="footer-link">DEVELOPED BY AAMUNE</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <!-- Collection -->
+  <section class="section shop-section">
+    <h1 class="shop-title reveal">COLLECTION 01</h1>
+
+    <div class="product-grid reveal">
+
+      <div class="product-card">
+        <div class="product-image-container">
+          <img src="/images/img6.jpg" alt="T-Shirt" class="product-img" loading="lazy">
+          <div class="product-overlay">
+            <button class="quick-view-btn">ZOOM</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-header">
+            <span class="product-name">DISTRESSED BAG</span>
+            <span class="product-price">$65.00</span>
+          </div>
+          <div class="size-selector">
+            <button class="size-btn">OS</button>
+          </div>
+          <button class="add-btn">ADD TO CART</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image-container">
+          <img src="/images/img1.jpg" alt="Pants" class="product-img" loading="lazy">
+          <div class="product-overlay">
+            <button class="quick-view-btn">ZOOM</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-header">
+            <span class="product-name">CARGO DENIM</span>
+            <span class="product-price">$120.00</span>
+          </div>
+          <div class="size-selector">
+            <button class="size-btn">30</button>
+            <button class="size-btn">32</button>
+            <button class="size-btn">34</button>
+          </div>
+          <button class="add-btn">ADD TO CART</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+  <!-- Lookbook-->
+  <section class="section lookbook-section">
+    <h1 class="lookbook-title reveal">Look Book</h1>
+
+
+    <div class="marquee-wrapper reveal">
+      <div class="marquee-track">
+        <div class="look-item"><img src="/images/img0.jpg" alt="Look 0" loading="eager"></div>
+        <div class="look-item"><img src="/images/img1.jpg" alt="Look 1" loading="eager"></div>
+        <div class="look-item"><img src="/images/img2.jpg" alt="Look 2" loading="eager"></div>
+        <div class="look-item"><img src="/images/img3.jpg" alt="Look 3" loading="eager"></div>
+        <div class="look-item"><img src="/images/img4.jpg" alt="Look 4" loading="eager"></div>
+        <div class="look-item"><img src="/images/img5.jpg" alt="Look 5"></div>
+        <div class="look-item"><img src="/images/img6.jpg" alt="Look 6"></div>
+        <div class="look-item"><img src="/images/img0.jpg" alt="Look 0"></div>
+        <div class="look-item"><img src="/images/img1.jpg" alt="Look 1"></div>
+        <div class="look-item"><img src="/images/img2.jpg" alt="Look 2"></div>
+        <div class="look-item"><img src="/images/img3.jpg" alt="Look 3"></div>
+        <div class="look-item"><img src="/images/img4.jpg" alt="Look 4"></div>
+        <div class="look-item"><img src="/images/img5.jpg" alt="Look 5"></div>
+        <div class="look-item"><img src="/images/img6.jpg" alt="Look 6"></div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- Zoom  -->
+  <div id="zoom-modal" class="lightbox-modal">
+    <span class="close-btn">&times;</span>
+    <div class="modal-nav prev-btn">&#10094;</div>
+    <div class="modal-nav next-btn">&#10095;</div> <img class="lightbox-content" id="lightbox-img">
+  </div>
+
+
+
+
+
+  <!-- Music -->
+
+  <audio id="bg-music" loop>
+    <source src="music by 4mula/code 135 @4mula.m4a" type="audio/mpeg">
+  </audio>
+
+  <button id="sound-btn" class="sound-toggle">
+    SOUND OFF
+  </button>
+
+
+
+
+  <!-- Scripts -->
+  <script type="module" src="/three/setup.js"></script>
+  <script type="module" src="/src/modal.js"></script>
+</body>
+
+</html>
