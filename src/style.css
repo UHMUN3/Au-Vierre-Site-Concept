@@ -404,7 +404,7 @@ main {
   font-weight: normal;
   color: #000000;
   text-transform: uppercase;
-  font-size: 7vmin;
+  font-size: 6vmin;
   padding-left: 10%;
   padding-right: 10%;
 }
@@ -426,7 +426,7 @@ section:nth-child(odd) {
 
 .lookbook-title {
   font-family: WBTextt, serif;
-  font-size: 7rem;
+  font-size: 6rem;
   font-weight: normal;
   text-align: center;
   padding-left: 10%;
@@ -616,7 +616,7 @@ section:nth-child(odd) {
 
 .preloader-logo {
   font-family: 'WBTextt', serif;
-  font-size: 7rem;
+  font-size: 6rem;
   font-weight: normal;
   color: #000;
   margin: 0;
@@ -670,7 +670,7 @@ section:nth-child(odd) {
 
 .shop-title {
   font-family: 'WBTextt', serif;
-  font-size: 7rem;
+  font-size: 6rem;
   margin-bottom: 60px;
   text-align: center;
   font-weight: normal;
