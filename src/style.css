@@ -810,18 +810,6 @@ section:nth-child(odd) {
 }
 
 
-/* Mobile Adjustment */
-@media (max-width: 768px) {
-
-  .shop-title,
-  .lookbook-title {
-    font-size: 5rem;
-    word-wrap: break-word;
-    /* Prevents long words from breaking the layout */
-  }
-}
-
-
 /* ===== Scroll Reveal Animation ===== */
 .reveal {
   opacity: 0;
