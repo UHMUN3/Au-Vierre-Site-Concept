@@ -38,50 +38,45 @@ const enterBtn = document.getElementById('enter-btn');
 let hasStarted = false;
 
 // Function to Start Site (Async Version)
+// Function to Start Site
 const enterSite = async (e) => {
     // Prevent double-firing
     if (hasStarted) return;
 
-    // Stop the browser from doing standard touch actions (scrolling/zooming)
+    // 1. IMMEDIATE UI FEEDBACK (The Fix)
+    // We hide the loader first, so the user never feels "stuck"
+    hasStarted = true;
+    if (preloader) {
+        preloader.classList.add('preloader-hidden');
+    }
+
+    // Optional: Stop scrolling interference
     if (e && e.cancelable) e.preventDefault();
 
-    hasStarted = true;
-
-    // 1. Audio Context Hack (The "Wake Up" Call)
-    // This waits until the hardware is confirmed ready
+    // 2. NOW we handle the heavy audio stuff in the background
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (AudioContext) {
         const ctx = new AudioContext();
-        await ctx.resume();
+        // We use .then() instead of await so it doesn't freeze the screen if it hangs
+        ctx.resume().catch(err => console.log("Audio Context issue:", err));
     }
 
-    // 2. Prepare Audio
-    music.volume = 0.7;
-    music.muted = false; // Unmute now that we have interaction
-
     // 3. Play Music
+    music.volume = 0.7;
+    music.muted = false;
+
     try {
         await music.play();
         soundBtn.innerHTML = 'SOUND ON';
-        console.log("Audio playing successfully");
     } catch (error) {
-        console.log("Audio play failed:", error);
+        console.log("Audio play failed (likely low power mode):", error);
         soundBtn.innerHTML = 'SOUND OFF';
     }
 
     // 4. Play Video
     const video = document.getElementById('logo-video');
     if (video) {
-        try {
-            await video.play();
-        } catch (err) {
-            console.log("Video play failed:", err);
-        }
-    }
-
-    // 5. Hide Preloader
-    if (preloader) {
-        preloader.classList.add('preloader-hidden');
+        video.play().catch(e => console.log("Video failed:", e));
     }
 
     // Cleanup listeners
