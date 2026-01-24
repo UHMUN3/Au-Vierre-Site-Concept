@@ -44,8 +44,8 @@ html {
 
 /* Font  */
 @font-face {
-  font-family: 'WBtext';
-  src: url('/font/warband-stencil-cufonfonts/WBtext.otf');
+  font-family: 'WBTextt';
+  src: url('/font/warband-stencil-cufonfonts/WBTextt.otf');
   font-weight: normal;
   font-style: normal;
 }
@@ -400,7 +400,8 @@ main {
   height: 100vh;
   position: relative;
   justify-content: center;
-  font-family: 'WBtext', sans-serif;
+  font-family: 'WBTextt', sans-serif;
+  font-weight: normal;
   color: #000000;
   text-transform: uppercase;
   font-size: 7vmin;
@@ -424,8 +425,9 @@ section:nth-child(odd) {
 }
 
 .lookbook-title {
-  font-family: WBtext, serif;
-  font-size: 4rem;
+  font-family: WBTextt, serif;
+  font-size: 7rem;
+  font-weight: normal;
   text-align: center;
   padding-left: 10%;
   padding-right: 10%;
@@ -613,8 +615,9 @@ section:nth-child(odd) {
 }
 
 .preloader-logo {
-  font-family: 'WBtext', serif;
-  font-size: 4rem;
+  font-family: 'WBTextt', serif;
+  font-size: 7rem;
+  font-weight: normal;
   color: #000;
   margin: 0;
   /* Remove default margins to keep spacing tight */
@@ -666,10 +669,11 @@ section:nth-child(odd) {
 }
 
 .shop-title {
-  font-family: 'WBtext', serif;
-  font-size: 4rem;
+  font-family: 'WBTextt', serif;
+  font-size: 7rem;
   margin-bottom: 60px;
   text-align: center;
+  font-weight: normal;
 }
 
 .product-grid {

@@ -37,8 +37,32 @@ const preloader = document.getElementById('preloader');
 const enterBtn = document.getElementById('enter-btn');
 let hasStarted = false;
 
+
+// --- NEW PLAYLIST LOGIC ---
+const playlist = [
+    '/music/background.m4a', // Track 1
+    '/music/xotour.m4a' // Track 2 
+];
+let currentTrackIndex = 0;
+
+
+// Listen for when a song ends
+music.addEventListener('ended', () => {
+    // 1. Move to next index (loops back to 0 if at the end)
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+
+    // 2. Change the source
+    music.src = playlist[currentTrackIndex];
+
+    // 3. Play immediately (Browser allows this since we are already unlocked)
+    music.play().then(() => {
+        console.log(`Now playing: ${playlist[currentTrackIndex]}`);
+    }).catch(e => console.log("Next track failed:", e));
+});
+
+
+
 // Function to Start Site (Async Version)
-// Function to Start Site
 const enterSite = async (e) => {
     // Prevent double-firing
     if (hasStarted) return;
