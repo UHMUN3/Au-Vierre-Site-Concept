@@ -19,6 +19,7 @@ html {
   margin: 0;
   padding: 0;
   width: 100%;
+  overflow-x: hidden;
   min-height: 100%;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background: #ffffff;
@@ -52,7 +53,8 @@ html {
 
 
 
-/* Custom Scrollbar (Webkit browsers like Chrome/Safari) */
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -315,16 +317,7 @@ html {
 }
 
 
-main {
-  position: relative;
-  z-index: 1;
-}
 
-.panel {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-}
 
 
 /* Logo video */
@@ -409,9 +402,7 @@ main {
   padding-right: 10%;
 }
 
-section:nth-child(odd) {
-  justify-content: flex-end;
-}
+
 
 /* ===== Look Book Marquee Section ===== */
 
@@ -831,4 +822,41 @@ video::-webkit-media-controls {
 video::-webkit-media-controls-start-playback-button {
   display: none !important;
   -webkit-appearance: none;
+}
+
+
+/* =========================================
+   MOBILE ADJUSTMENTS (MUST BE AT THE BOTTOM)
+   ========================================= */
+@media (max-width: 768px) {
+
+  /* 1. Fix the Shop & Lookbook Titles */
+  .shop-title,
+  .lookbook-title {
+    font-size: 18vw;
+    /* Scales perfectly */
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    white-space: nowrap;
+    /* Forces one line */
+    text-align: center;
+  }
+
+  /* 2. Unlock the container width */
+  .section.lookbook-section {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  /* 3. Adjust Lookbook Images */
+  .look-item img {
+    height: 40vh;
+  }
+
+  /* 4. Fix Arrows */
+  .modal-nav {
+    font-size: 30px;
+    padding: 10px;
+  }
 }
