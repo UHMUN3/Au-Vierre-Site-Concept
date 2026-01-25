@@ -439,6 +439,11 @@ html {
   /* No gaps here */
   width: max-content;
   animation: scrollLeft 40s linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 .look-item {
@@ -454,8 +459,10 @@ html {
   width: auto;
   object-fit: cover;
   display: block;
-  /* Important: removes default whitespace below images */
   transition: opacity 0.3s ease;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
 }
 
 /* Hover effects */
@@ -473,11 +480,11 @@ html {
 
 @keyframes scrollLeft {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -743,7 +750,7 @@ html {
 .size-btn:hover,
 .size-btn.selected {
   border-color: #000;
-  background: #000;
+  background: #00000043;
   color: #fff;
 }
 
