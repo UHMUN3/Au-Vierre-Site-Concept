@@ -734,6 +734,10 @@ html {
   font-size: 10px;
   cursor: pointer;
   transition: all 0.2s;
+
+  color: #000000 !important;
+  -webkit-apperance: none;
+  border-radius: 0;
 }
 
 .size-btn:hover,
