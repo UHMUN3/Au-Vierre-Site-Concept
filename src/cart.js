@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollY = window.scrollY;
     const windowHeight = window.innerHeight;
 
-    if (scrollY + (windowHeight / 1.5) > sectionTop) {
+    if (cartPanel.classList.contains('open') || scrollY + (windowHeight / 1.5) > sectionTop) {
       cartContainer.classList.add('visible');
     } else {
       cartContainer.classList.remove('visible');
@@ -42,11 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function openCart() {
     cartPanel.classList.add('open');
     cartContainer.classList.add('active');
+    checkScroll();
   }
 
   function closeCart() {
     cartPanel.classList.remove('open');
     cartContainer.classList.remove('active');
+    checkScroll();
   }
 
   function renderCart() {
