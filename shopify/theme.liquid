@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{{ 'favicon.ico' | asset_url }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ 'favicon-32x32.png' | asset_url }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ 'favicon-16x16.png' | asset_url }}">
+
+<link rel="apple-touch-icon" sizes="180x180" href="{{ 'apple-touch-icon.png' | asset_url }}">
+
+<link rel="icon" type="image/png" sizes="192x192" href="{{ 'android-chrome-192x192.png' | asset_url }}">
+<link rel="icon" type="image/png" sizes="512x512" href="{{ 'android-chrome-512x512.png' | asset_url }}">
+
+<link rel="manifest" href="{{ 'site.webmanifest' | asset_url }}">
+
+<meta name="theme-color" content="#ffffff">
+    {% if request.path == '/cart' %}
+    <script>
+      window.location.href = '/?open_cart=true';
+    </script>
+    {% endif %}
+
+    <title>{{ page_title }}</title>
+    
+  <script>
+  window.shopAssets = {
+    music1: "{{ 'background.m4a' | file_url }}",
+    music2: "{{ 'xotour.m4a' | file_url }}", 
+    texture: "{{ 'particle.png' | asset_url }}",
+    gradient: "{{ '3.jpg' | asset_url }}"  
+  };
+</script>
+
+    {{ content_for_header }}
+
+    <style>
+  @font-face {
+    font-family: 'WBTextt';
+    src: url("{{ 'WBTextt.otf' | asset_url }}");
+    font-weight: normal;
+    font-style: normal;
+  }
+</style>
+
+    <link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
+  </head>
+  
+  <body>
+    {{ content_for_layout }}
+
+    <script type="module" src="{{ 'setup.js' | asset_url }}"></script>
+    <script src="{{ 'cart.js' | asset_url }}" defer></script>
+    <script type="module" src="{{ 'modal.js' | asset_url }}"></script>
+  </body>
+</html>

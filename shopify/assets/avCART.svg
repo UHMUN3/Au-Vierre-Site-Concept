@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Shopping bag with av">
+  <title>Shopping bag with av</title>
+
+  <!-- Bag outline (thinner stroke) -->
+  <path d="
+    M160 160
+    H352
+    L380 430
+    Q384 468 352 468
+    H160
+    Q128 468 132 430
+    Z"
+    fill="none"
+    stroke="#000"
+    stroke-width="24"
+    stroke-linejoin="round"
+    stroke-linecap="round"/>
+
+  <!-- Handle (thinner stroke) -->
+  <path d="
+    M208 160
+    V120
+    Q208 64 256 64
+    Q304 64 304 120
+    V160"
+    fill="none"
+    stroke="#000"
+    stroke-width="24"
+    stroke-linejoin="round"
+    stroke-linecap="round"/>
+
+  <!-- Letters -->
+  <text x="256" y="320"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        font-family="Georgia, 'Times New Roman', Times, serif"
+        font-size="176"
+        font-weight="400"
+        fill="#000">av</text>
+</svg>

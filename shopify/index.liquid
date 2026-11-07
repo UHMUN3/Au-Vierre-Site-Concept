@@ -1,0 +1,365 @@
+<div id="preloader">
+    <div class="preloader-content">
+      <h1 class="preloader-logo">WELCOME</h1>
+      
+      <div id="enter-btn"
+        style="margin-top: 30px; cursor: pointer; font-family: 'Helvetica Neue', sans-serif; font-size: 12px; letter-spacing: 0.2em; border-bottom: 1px solid black; padding-bottom: 5px;">
+        TAP TO ENTER
+      </div>
+    </div>
+  </div>
+
+  <canvas class="webgl"></canvas>
+
+  <div class="cart-container" id="cartContainer">
+    <div class="cart-icon" id="cartIcon">
+      <img src="{{ 'avCART.svg' | asset_url }}" alt="Cart">
+      <span class="cart-count" id="cartCount">0</span>
+    </div>
+  </div>
+
+  <div class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <h2 class="cart-title">CART</h2>
+      <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+
+    <div class="cart-empty" id="cartEmpty">
+      YOUR CART IS EMPTY
+    </div>
+
+    <div class="cart-items" id="cartItems">
+      </div>
+
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span class="cart-total-label"> ESTIMATED TOTAL</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <button class="cart-checkout">CHECKOUT</button>
+    </div>
+  </div>
+
+  <div id="intro">
+    <div class="intro-inner">
+  <video 
+  id="logo-video" 
+  loop 
+  muted 
+  playsinline 
+  preload="auto"
+  style="display: block; width: 800px; max-width: 90vw; height: auto;">
+  <source src="https://cdn.shopify.com/videos/c/o/v/9bc7c92875814685a7b928db84497a2d.mov" type='video/mp4; codecs="hvc1"'>
+  <source src="https://cdn.shopify.com/videos/c/o/v/46c0fa5433314dacac30e3310bc91f70.webm" type="video/webm">
+  <source src="https://cdn.shopify.com/videos/c/o/v/1430773cd66a4385830a4fdf2dba0e72.mp4" type="video/mp4">
+</video>
+
+
+      <audio id="bg-music" preload="auto" muted>
+        <source src="{{ 'background.m4a' | file_url }}" type="audio/mp4">
+      </audio>
+
+      <button id="sound-btn" class="sound-toggle">
+        SOUND OFF
+      </button>
+
+      <div class="directions" aria-label="Directions to enter">
+        <a>SCROLL</a>
+        <a>TO</a>
+        <a>SHOP</a>
+      </div>
+
+      <div class="intro-footer">
+        <div>THE AU VIERRE SITE IS OPTIMIZED FOR ALL DEVICES</div>
+        <div>Le site AU VIERRE est optimisé pour tous les supports.</div>
+        <div>AU VIERREサイトはすべてのデバイスに最適化されています</div>
+        <div><a href="https://www.instagram.com/prod4mula/" target="_blank" class="footer-link">SOUNDS BY 4MULA</a>
+        </div>
+        <div><a href="https://www.instagram.com/aamune/" target="_blank" class="footer-link">DEVELOPED BY AAMUNE</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <section class="section shop-section">
+    <h1 class="shop-title reveal">COLLECTION 01</h1>
+
+    <div class="product-grid reveal">
+
+      <div class="product-card">
+        <div class="product-image-container">
+          <img src="{{ 'img6.jpg' | asset_url }}" alt="Cargo Rucksack" class="product-img" loading="lazy">
+          <div class="product-overlay"><button class="quick-view-btn">ZOOM</button></div>
+
+          <div class="hidden-gallery" style="display: none;">
+            <img src="{{ 'img5.jpg' | asset_url }}" alt="Bag Back View">
+            <img src="{{ 'bag_close.jpeg' | asset_url }}" alt="Bag Detail View">
+          </div>
+        </div>
+
+        <div class="product-info">
+
+          <div class="specs-trigger">SPECS + SIZING</div>
+
+<div class="specs-content" style="display: none;">
+  <h3>CARGO RUCKSACK</h3>
+  <p>
+      THE CARGO RUCKSACK IS MADE FROM 100% COTTON AND DESIGNED AROUND A RAW, UTILITARIAN SILHOUETTE. DISTRESSING IS APPLIED THROUGHOUT AS A VISUAL ELEMENT, ADDING TEXTURE AND EDGE WITHOUT ALTERING THE CORE CONSTRUCTION.
+      <br><br>
+      THREE FRONT CARGO POCKETS ARE FINISHED WITH BRASS HARDWARE. A DEDICATED WATER CANISTER POCKET FEATURES A BRASS EYELET FOR DRAINAGE. THE LAYOUT IS DIRECT AND FUNCTION-LED, WITH EVERY POCKET PLACED FOR ACCESS AND CARRY.
+      <br><br>
+      BANDOLEER-STYLE STRAPS RUN OVER THE SHOULDERS AND ARE DESIGNED TO HOLD SHOTGUN SHELLS, BRINGING A HARD, MILITARY-INFLUENCED DETAIL INTO THE DESIGN. THE RESULT IS A CLEAN BUT AGGRESSIVE RUCK WITH A STRIPPED-DOWN, TACTICAL PRESENCE.
+      <br><br>
+      <strong>INCLUDES NONFUNCTIONAL PLASTIC PROP SHELLS FOR DECORATIVE PURPOSES ONLY </strong>
+    </p>
+    <br>
+  <h4>DIMENSIONS (INCHES)</h4>
+  <table style="width: 100%; text-align: left; font-size: 11px;">
+    <tr><th>WIDTH</th><th>HEIGHT</th></tr>
+    <tr><td>18"</td><td>13"</td></tr>
+  </table>
+</div>
+
+
+
+          <div class="product-header">
+            <div class="name-stock-wrapper">
+              <span class="product-name">Cargo Rucksack</span>
+              <span class="low-stock">OUT OF STOCK </span>
+            </div>
+            <span class="product-price">$65.00</span>
+          </div>
+          <div class="size-selector">
+            <button class="size-btn" data-id="47514722435292">OS</button>
+          </div>
+          <button class="add-btn">ADD TO CART</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image-container">
+          <img src="{{ 'img1.jpg' | asset_url }}" alt="Cargo Bells" class="product-img" loading="lazy">
+          <div class="product-overlay"><button class="quick-view-btn">ZOOM</button></div>
+
+          <div class="hidden-gallery" style="display: none;">
+            <img src="{{ 'denim_front_1.jpeg' | asset_url }}" alt="Denim Front View">
+            <img src="{{ 'img3.jpg' | asset_url }}" alt="Denim Back View">
+            <img src="{{ 'denim_close.jpeg' | asset_url }}" alt="Denim Detail View">
+          </div>
+        </div>
+
+        <div class="product-info">
+
+
+
+          <div class="specs-trigger">SPECS + SIZING</div>
+
+<div class="specs-content" style="display: none;">
+  <h3>CARGO BELLS</h3>
+   <p>
+      THE CARGO BELL-BOTTOM DENIM IS BUILT FROM HEAVY 14OZ 100% COTTON AND FINISHED WITH A DIRTY WASH THAT LOOKS LIVED-IN, NOT FAKED. DISTRESSING IS LEFT ROUGH AND INTENTIONAL, GIVING THE PIECE A WORN, HARD-USED CHARACTER FROM DAY ONE.
+      <br><br>
+      BRASS HARDWARE AND A BUTTON FLY ANCHOR THE PANT IN OLD-WORLD WORKWEAR, WHILE CARGO POCKETS SET INTO THE FLARE AND A NETTED BACK POCKET PUSH IT INTO UNFAMILIAR TERRITORY. A PATCH DETAIL HITS THE BACK AS A QUIET MARK OF IDENTITY.
+      <br><br>
+      THE 15.5-INCH LEG OPENING DRAGS LOW AND WIDE, DESIGNED TO BREAK OVER BOOTS AND COLLECT DIRT, NOT AVOID IT. EIGHT TOTAL POCKETS TURN FUNCTION INTO STATEMENT.
+    </p>
+    <br>
+  <h4>SIZE GUIDE (INCHES)</h4>
+  <table style="width: 100%; text-align: left; font-size: 11px;">
+    <tr><th>SIZE</th><th>WAIST</th><th>INSEAM</th><th>FRONT-RISE</th><th>THIGH</th><th>LEG-OPENING</th></tr>
+    <tr><td>28</td><td>28"</td><td>32.5"</td><td>9.5"</td><td>10.5"</td><td>15.5"</td></tr>
+    <tr><td>30</td><td>30"</td><td>32.5"</td><td>9.5"</td><td>10.5"</td><td>15.5"</td></tr>
+    <tr><td>32</td><td>32"</td><td>32.5"</td><td>9.5"</td><td>10.5"</td><td>15.5"</td></tr>
+    <tr><td>34</td><td>34"</td><td>32.5"</td><td>9.5"</td><td>10.5"</td><td>15.5"</td></tr>
+  </table>
+</div>
+
+
+
+          <div class="product-header">
+            <div class="name-stock-wrapper">
+              <span class="product-name">Cargo Bells</span>
+              <span class="low-stock">LOW STOCK</span>
+            </div>
+            <span class="product-price">$120.00</span>
+          </div>
+          <div class="size-selector">
+            <button class="size-btn" data-id="47514722664668">28</button>
+            <button class="size-btn" data-id="47514723057884">30</button>
+            <button class="size-btn" data-id="47514723090652">32</button>
+            <button class="size-btn" data-id="47514723123420">34</button>
+          </div>
+          <button class="add-btn">ADD TO CART</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section lookbook-section">
+    <h1 class="lookbook-title reveal">Look Book</h1>
+
+    <div class="marquee-wrapper reveal">
+      <div class="marquee-track">
+        <div class="look-item"><img src="{{ 'pic00.jpg' | asset_url }}" alt="Look 0" loading="eager"></div>
+        <div class="look-item"><img src="{{ 'img1.jpg' | asset_url }}" alt="Look 1" loading="eager"></div>
+        <div class="look-item"><img src="{{ 'img3.jpg' | asset_url }}" alt="Look 3" loading="eager"></div>
+        <div class="look-item"><img src="{{ 'img4.jpg' | asset_url }}" alt="Look 4" loading="eager"></div>
+        <div class="look-item"><img src="{{ 'img5.jpg' | asset_url }}" alt="Look 5"></div>
+        <div class="look-item"><img src="{{ 'img6.jpg' | asset_url }}" alt="Look 6"></div>
+        <div class="look-item"><img src="{{ 'pic00.jpg' | asset_url }}" alt="Look 0"></div>
+        <div class="look-item"><img src="{{ 'img1.jpg' | asset_url }}" alt="Look 1"></div>
+        <div class="look-item"><img src="{{ 'img3.jpg' | asset_url }}" alt="Look 3"></div>
+        <div class="look-item"><img src="{{ 'img4.jpg' | asset_url }}" alt="Look 4"></div>
+        <div class="look-item"><img src="{{ 'img5.jpg' | asset_url }}" alt="Look 5"></div>
+        <div class="look-item"><img src="{{ 'img6.jpg' | asset_url }}" alt="Look 6"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <div id="zoom-modal" class="lightbox-modal">
+    <span class="close-btn">&times;</span>
+    <div class="modal-nav prev-btn">&#10094;</div>
+    <div class="modal-nav next-btn">&#10095;</div> <img class="lightbox-content" id="lightbox-img">
+  </div>
+
+  <div id="specs-modal" class="specs-modal">
+  <div class="specs-modal-content">
+    <span class="specs-close">&times;</span>
+    <div id="specs-body"></div>
+  </div>
+</div>
+
+
+<div class="policy-controls" id="policyControls">
+  <button class="policy-trigger" data-type="shipping">SHIPPING</button>
+  <button class="policy-trigger" data-type="returns">RETURNS</button>
+  <button class="policy-trigger" data-type="contact">CONTACT</button>
+  <button class="policy-trigger" data-type="privacy">PRIVACY</button>
+</div>
+{% comment %} SHIPPING SECTION  {% endcomment %}
+<div id="shipping-content" style="display: none;">
+  <h3>SHIPPING POLICY</h3>
+  <p>
+    PLEASE REVIEW THE SHIPPING DETAILS LISTED UNDER EACH PRODUCT BEFORE PURCHASING. 
+    ALLOW 1–6 WEEKS FOR PROCESSING AND SHIPMENT DEPENDING ON THE ITEM.
+  </p>
+
+  <h4>DELIVERY</h4>
+  <table style="width: 100%; text-align: left; font-size: 11px;">
+    <tr><th>REGION</th><th>TIMING</th></tr>
+    <tr><td>UNITED STATES</td><td>2-5 BUSINESS DAYS</td></tr>
+    <tr><td>INTERNATIONAL</td><td>TIMES MAY VARY</td></tr>
+  </table>
+
+  <h4>ORDER LOGISTICS</h4>
+  <p>
+    • PRE-ORDER ITEMS SHIP TOGETHER WITH READY-TO-SHIP ITEMS.<br>
+    • FOR SEPARATE SHIPMENTS, PLACE INDIVIDUAL ORDERS.<br>
+    • WE DO NOT SPLIT SHIPMENTS.
+  </p>
+
+  <h4>CARRIER RESPONSIBILITY</h4>
+  <p>
+    AU VIERRE IS NOT RESPONSIBLE FOR LOST OR STOLEN PACKAGES. ONCE TRACKING IS ISSUED, ALL CLAIMS MUST BE FILED THROUGH THE CARRIER (USPS/DHL).
+  </p>
+  
+  <p style="margin-top: 20px; font-size: 10px; color: #999;">
+    *ENSURE ADDRESS ACCURACY AT CHECKOUT. INCORRECT ADDRESSES ALREADY SHIPPED ARE NOT ELIGIBLE FOR REFUNDS.
+  </p>
+</div>
+{% comment %} PRIVACY SECTION {% endcomment %}
+<div id="privacy-content" style="display: none;">
+  <h3>PRIVACY POLICY</h3>
+  <p>
+    AU VIERRE IS POWERED BY SHOPIFY. THIS POLICY DESCRIBES HOW WE COLLECT, USE, AND DISCLOSE YOUR PERSONAL INFORMATION DURING YOUR VISIT OR PURCHASE.
+  </p>
+
+  <h4>DATA COLLECTION</h4>
+  <table style="width: 100%; text-align: left; font-size: 11px;">
+    <tr><th>CATEGORY</th><th>DETAILS</th></tr>
+    <tr><td>CONTACT</td><td>NAME, EMAIL, ADDRESS</td></tr>
+    <tr><td>FINANCIAL</td><td>PAYMENT INFO, TRANSACTIONS</td></tr>
+    <tr><td>DEVICE</td><td>IP ADDRESS, BROWSER TYPE</td></tr>
+  </table>
+
+  <h4>HOW WE USE DATA</h4>
+  <p>
+    • FULFILLING ORDERS AND PROCESSING PAYMENTS.<br>
+    • PREVENTING FRAUD AND SECURING TRANSACTIONS.<br>
+    • CUSTOMIZING YOUR SHOPPING EXPERIENCE.<br>
+    • COMPLYING WITH LEGAL OBLIGATIONS.
+  </p>
+
+  <h4>YOUR RIGHTS</h4>
+  <p>
+    DEPENDING ON YOUR LOCATION, YOU MAY HAVE THE RIGHT TO ACCESS, CORRECT, OR DELETE YOUR PERSONAL DATA. TO EXERCISE THESE RIGHTS, CONTACT <strong>AUVIERRE@GMAIL.COM</strong>.
+  </p>
+
+  <p style="margin-top: 20px; font-size: 10px; color: #999;">
+    *BY USING OUR SERVICES, YOU ACKNOWLEDGE THE TERMS OF THIS PRIVACY POLICY. FOR MORE INFO, VISIT THE SHOPIFY CONSUMER PRIVACY PORTAL.
+  </p>
+</div>
+
+
+{% comment %} RETURNS SECTION {% endcomment %}
+<div id="returns-content" style="display: none;">
+  <h3>RETURNS & REFUNDS</h3>
+  <p>
+    ALL SALES ARE FINAL. WE DO NOT ACCEPT RETURNS OR EXCHANGES UNLESS THE ITEM IS DEFECTIVE OR DAMAGED UPON ARRIVAL. 
+    <br><br>
+    IF DAMAGED, CONTACT <strong>AUVIERRE@GMAIL.COM</strong> WITHIN 48 HOURS WITH YOUR ORDER NUMBER AND PHOTOS.
+  </p>
+
+  <h4>CONDITIONS</h4>
+  <p>
+    • ALL TAGS MUST REMAIN ATTACHED (HANG TAGS, POCKET TAGS).<br>
+    • ALL PROMOTIONAL ITEMS MUST BE RETURNED.<br>
+    • ITEMS WITHOUT ORIGINAL TAGS WILL BE REJECTED.
+  </p>
+
+  <h4>REFUND POLICY</h4>
+  <table style="width: 100%; text-align: left; font-size: 11px;">
+    <tr><th>METHOD</th><th>TIMING</th></tr>
+    <tr><td>ORIGINAL PAY</td><td>7-10 DAYS</td></tr>
+    <tr><td>EXCHANGES</td><td>SUBJECT TO STOCK</td></tr>
+  </table>
+
+  <p style="margin-top: 20px; font-size: 10px; color: #999;">
+    *CUSTOMERS ARE RESPONSIBLE FOR RETURN SHIPPING COSTS. TRACKABLE SERVICES ARE STRONGLY RECOMMENDED.
+  </p>
+</div>
+
+{% comment %} CONTACT SECTION {% endcomment %}
+<div id="contact-content" style="display: none;">
+  <h3>CONTACT US</h3>
+  
+  {% form 'contact', id: 'contact-form-ajax' %}
+    <div id="contact-success" style="display: none;">
+      <div class="contact-success-msg" style="margin-top: 20px; font-family: 'WBTextt', serif; font-size: 14px; color: #000; text-align: center; border: 1px solid #000; padding: 20px; text-transform: uppercase; letter-spacing: 0.1em;">
+        YOUR MESSAGE HAS BEEN RECEIVED. <br> WE WILL CONTACT YOU SHORTLY.
+      </div>
+    </div>
+
+    <div id="contact-fields">
+      <p>FOR INQUIRIES REGARDING ORDERS, PRESS, OR GENERAL QUESTIONS.</p>
+      <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+        <input type="text" name="contact[name]" placeholder="NAME" required 
+               style="background: transparent; border: 1px solid #000; padding: 12px; font-family: 'WBTextt', serif; font-size: 15px; border-radius: 0;">
+        <input type="email" name="contact[email]" placeholder="EMAIL" required 
+               style="background: transparent; border: 1px solid #000; padding: 12px; font-family: 'WBTextt', serif; font-size: 15px; border-radius: 0;">
+        <textarea rows="6" name="contact[body]" placeholder="MESSAGE" required 
+                  style="background: transparent; border: 1px solid #000; padding: 12px; font-family: 'WBTextt', serif; font-size: 15px; border-radius: 0; resize: none;"></textarea>
+        <button type="submit" class="add-btn">SEND MESSAGE</button>
+      </div>
+    </div>
+  {% endform %}
+</div>
+
+<footer class="site-footer">
+    <div class="footer-copyright">
+      &copy; 2026 AU VIERRE. ALL RIGHTS RESERVED.
+    </div>
+  </footer>
