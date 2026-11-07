@@ -1,8 +1,3 @@
-import * as THREE from 'three'
-import gsap from 'gsap'
-
-
-
 const signature = `
           :::     :::    :::       :::     ::: ::::::::::: :::::::::: :::::::::  :::::::::  :::::::::: 
        :+: :+:   :+:    :+:       :+:     :+:     :+:     :+:        :+:    :+: :+:    :+: :+:         
@@ -15,20 +10,15 @@ const signature = `
 
 console.log(`%c${signature}`, 'font-family: monospace; font-weight: bold; color: #ffffff;');
 
-
 console.group('CREDITS');
-console.log('Sounds by 4MULA');
+console.log('SOUNDS BY 4MULA');
 console.log('https://www.instagram.com/prod4mula/');
 console.log('');
-console.log('Dev by AAMUNE');
+console.log('DEVELOPED BY AAMUNE');
 console.log('https://www.instagram.com/aamune/');
 console.groupEnd();
 
-
-
-
-
-
+import * as THREE from 'three';
 
 // Audio & Preloader Elements
 const music = document.getElementById('bg-music');
@@ -38,92 +28,93 @@ const enterBtn = document.getElementById('enter-btn');
 let hasStarted = false;
 
 
-// --- NEW PLAYLIST LOGIC ---
-const playlist = [
-    '/music/background.m4a', // Track 1
-    '/music/xotour.m4a' // Track 2 
-];
-let currentTrackIndex = 0;
+// --- CONTACT FORM ---
+// There is no Shopify backend here, so open an email draft instead.
+document.addEventListener('submit', (e) => {
+    // Use delegation because the form is injected into the modal dynamically
+    if (e.target && e.target.id === 'contact-form-ajax') {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const subject = `Message from ${formData.get('contact[name]')}`;
+        const body = `${formData.get('contact[body]')}\n\nReply to: ${formData.get('contact[email]')}`;
+        window.open(`mailto:auvierre@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_self');
+    }
+});
 
+
+// PLAYLIST LOGIC
+const playlist = window.shopAssets ? [
+    window.shopAssets.music1,
+    window.shopAssets.music2
+] : [
+    '/music/background.m4a', 
+    '/music/xotour.m4a'
+];
+
+let currentTrackIndex = 0;
 
 // Listen for when a song ends
 music.addEventListener('ended', () => {
-    // 1. Move to next index (loops back to 0 if at the end)
     currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-
-    // 2. Change the source
     music.src = playlist[currentTrackIndex];
-
-    // 3. Play immediately (Browser allows this since we are already unlocked)
     music.play().then(() => {
         console.log(`Now playing: ${playlist[currentTrackIndex]}`);
     }).catch(e => console.log("Next track failed:", e));
 });
 
-
-
 // Function to Start Site (Async Version)
 const enterSite = async (e) => {
-    // Prevent double-firing
     if (hasStarted) return;
-
-    // 1. IMMEDIATE UI FEEDBACK (The Fix)
-    // We hide the loader first, so the user never feels "stuck"
     hasStarted = true;
+    
+    // 1. Hide Preloader immediately
     if (preloader) {
         preloader.classList.add('preloader-hidden');
     }
-
-    // Optional: Stop scrolling interference
     if (e && e.cancelable) e.preventDefault();
 
-    // 2. NOW we handle the heavy audio stuff in the background
+    // 2. Initialize Audio Context (Mobile fix)
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (AudioContext) {
         const ctx = new AudioContext();
-        // We use .then() instead of await so it doesn't freeze the screen if it hangs
         ctx.resume().catch(err => console.log("Audio Context issue:", err));
     }
 
-    // 3. Play Music
-    music.volume = 0.7;
-    music.muted = false;
-
-    try {
-        await music.play();
-        soundBtn.innerHTML = 'SOUND ON';
-    } catch (error) {
-        console.log("Audio play failed (likely low power mode):", error);
-        soundBtn.innerHTML = 'SOUND OFF';
-    }
-
-    // 4. Play Video
+    // 3. Play VIDEO (Priority)
     const video = document.getElementById('logo-video');
     if (video) {
-        video.play().catch(e => console.log("Video failed:", e));
+        console.log('Attempting to play video');
+        video.muted = true; // Force mute to ensure autoplay works
+        video.play().then(() => {
+             console.log('Video played!');
+        }).catch((error) => {
+             console.error('Video play failed:', error);
+        });
     }
 
-    // Cleanup listeners
+    // 4. Play AUDIO (Independent of video)
+    music.volume = 0.7;
+    music.muted = false;
+    
+    // Do NOT use 'await' here. We use .then/.catch so it runs in parallel.
+    music.play().then(() => {
+        soundBtn.innerHTML = 'SOUND ON';
+    }).catch(error => {
+        console.log("Audio play failed (likely file path or browser block):", error);
+        soundBtn.innerHTML = 'SOUND OFF';
+    });
+
     if (enterBtn) {
         enterBtn.removeEventListener('click', enterSite);
         enterBtn.removeEventListener('touchstart', enterSite);
     }
 };
 
-// Add Listeners with "Passive: False"
-// This tells the browser "We are handling the touch event ourselves"
 if (enterBtn) {
-    enterBtn.addEventListener('click', enterSite, {
-        passive: false
-    });
-    // 'once: true' automatically removes the listener after one tap
-    enterBtn.addEventListener('touchstart', enterSite, {
-        passive: false,
-        once: true
-    });
+    enterBtn.addEventListener('click', enterSite, { passive: false });
+    enterBtn.addEventListener('touchstart', enterSite, { passive: false, once: true });
 }
 
-// Keep the Sound Toggle Button Logic
 soundBtn.addEventListener('click', () => {
     if (music.paused) {
         music.play();
@@ -134,47 +125,36 @@ soundBtn.addEventListener('click', () => {
     }
 });
 
-
-
-
-
-
-
-
-
 /**
  * Base
  */
-// Canvas
 const canvas = document.querySelector('canvas.webgl')
-
-// Scene
 const scene = new THREE.Scene()
 
 /**
  * Objects
  */
-
-// Texture
 const textureLoader = new THREE.TextureLoader()
-const gradientTexture = textureLoader.load('./textures/gradients/3.jpg')
-const particleTexture = textureLoader.load('./logos/particle.png')
+
+// --- USE SHOPIFY ASSETS ---
+const gradientUrl = (window.shopAssets && window.shopAssets.gradient) ? window.shopAssets.gradient : './textures/gradients/3.jpg';
+const particleUrl = (window.shopAssets && window.shopAssets.texture) ? window.shopAssets.texture : './logos/particle.png';
+
+const gradientTexture = textureLoader.load(gradientUrl);
+const particleTexture = textureLoader.load(particleUrl);
 gradientTexture.magFilter = THREE.NearestFilter
 
 // Material color
-const materialColor = '#ffffff'
+const materialColor = '#000000'
 
 // Material
 const material = new THREE.MeshToonMaterial({
-    color: materialColor, // Using our fixed color
+    color: materialColor, 
     gradientMap: gradientTexture
 })
 
-
-
-/** * Particles
- */
-const particlesCount = 1000
+/** * Particles */
+const particlesCount = 700
 const positions = new Float32Array(particlesCount * 3)
 
 for (let i = 0; i < particlesCount; i++) {
@@ -188,31 +168,23 @@ particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 
 
 // Material
 const particlesMaterial = new THREE.PointsMaterial({
-    color: materialColor, // Fixed: Uses the variable we defined above
+    color: '#ffffff',
     sizeAttenuation: true,
-    size: 1, // You can adjust this if the stars are too big/small
+    size: 1.5, 
     map: particleTexture,
     transparent: true,
     alphaMap: particleTexture,
     depthWrite: false,
-    blending: THREE.AdditiveBlending
+    blending: THREE.NormalBlending
 })
 
-// Points
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
-
-
-
-
-
-
-
 
 /**
  * Lights
  */
-const directionLight = new THREE.DirectionalLight('#ffffff', 3)
+const directionLight = new THREE.DirectionalLight('#ffffff', 1)
 directionLight.position.set(1, 1, 0)
 scene.add(directionLight)
 
@@ -225,15 +197,12 @@ const sizes = {
 }
 
 window.addEventListener('resize', () => {
-    // Update sizes
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
 
-    // Update camera
     camera.aspect = sizes.width / sizes.height
     camera.updateProjectionMatrix()
 
-    // Update renderer
     renderer.setSize(sizes.width, sizes.height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
@@ -244,7 +213,6 @@ window.addEventListener('resize', () => {
 const cameraGroup = new THREE.Group()
 scene.add(cameraGroup)
 
-// Base camera
 const camera = new THREE.PerspectiveCamera(35, sizes.width / sizes.height, 0.1, 100)
 camera.position.z = 6
 cameraGroup.add(camera)
@@ -262,13 +230,22 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 /**
  * Scroll
  */
-let scrollY = window.scrollY
-let currentSection = 0
+let scrollY = window.scrollY;
+const policyControls = document.getElementById('policyControls');
+const lookbookSection = document.querySelector('.lookbook-section');
 
 window.addEventListener('scroll', () => {
-    scrollY = window.scrollY
-    const newSection = Math.round(scrollY / sizes.height)
-})
+    scrollY = window.scrollY; // Keep for Three.js animation
+
+    if (lookbookSection) {
+        const sectionTop = lookbookSection.offsetTop;
+        if (scrollY + window.innerHeight > sectionTop) {
+            policyControls.classList.add('visible');
+        } else {
+            policyControls.classList.remove('visible');
+        }
+    }
+});
 
 /**
  * Cursor
@@ -301,12 +278,7 @@ const tick = () => {
     cameraGroup.position.x += (parallaxX - cameraGroup.position.x) * 5 * deltaTime
     cameraGroup.position.y += (parallaxY - cameraGroup.position.y) * 5 * deltaTime
 
-    // Animate meshes
-
-    // Render
     renderer.render(scene, camera)
-
-    // Call tick again on the next frame
     window.requestAnimationFrame(tick)
 }
 
@@ -319,11 +291,10 @@ const reveals = document.querySelectorAll('.reveal');
 
 const revealOnScroll = () => {
     const windowHeight = window.innerHeight;
-    const elementVisible = 150; // Triggers when element is 150px into view
+    const elementVisible = 150; 
 
     reveals.forEach((reveal) => {
         const elementTop = reveal.getBoundingClientRect().top;
-
         if (elementTop < windowHeight - elementVisible) {
             reveal.classList.add('active');
         }
@@ -331,5 +302,4 @@ const revealOnScroll = () => {
 };
 
 window.addEventListener('scroll', revealOnScroll);
-// Run once on load to show elements that are already visible at the top
 revealOnScroll();

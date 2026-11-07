@@ -52,13 +52,20 @@ shopify/                 Theme files for the live site
 ├── music/               Soundtrack
 └── favicon_io/          Favicons and web manifest
 
-index.html, src/, three/, public/    Original Vite concept
+index.html, src/, three/, public/    Vite version of the site
 ```
 
 ## Deployment
 
 - **Live site:** [auvierre.us](https://auvierre.us/) runs on Shopify, and theme changes are made through Shopify. Pushing to this repo doesn't update the store.
-- **Concept:** the [Vercel site](https://auvierre-concept.vercel.app) builds from the root of this repo and redeploys on every push to `main`.
+- **Concept:** the [Vercel site](https://auvierre-concept.vercel.app) is a static copy of the live design. It builds from the root of this repo and redeploys on every push to `main`.
+
+The concept has no Shopify backend, so two things work differently:
+
+- **Checkout** sends the cart to the live store at auvierre.us.
+- **The contact form** opens an email draft instead of sending a message.
+
+Products, prices, and stock labels are hardcoded in both versions, so a change on the live site has to be copied here by hand.
 
 To run the concept locally:
 
